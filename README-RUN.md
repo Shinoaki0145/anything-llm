@@ -148,61 +148,7 @@ Lưu cấu hình sau khi nhập xong.
 
 > **Lưu ý:** Base URL trên sử dụng HTTP không mã hóa. Chỉ nên dùng qua mạng tin cậy hoặc VPN; sử dụng HTTPS nếu endpoint được công khai ra Internet.
 
-## 3. Chạy bằng Docker image
-
-Đây là cách nhanh nhất nếu chỉ muốn sử dụng ứng dụng. Cần cài Docker Desktop trên Windows hoặc Docker Engine trên Linux.
-
-### Windows PowerShell
-
-```powershell
-docker pull mintplexlabs/anythingllm
-
-$env:STORAGE_LOCATION="$HOME\Documents\anythingllm"
-if (!(Test-Path $env:STORAGE_LOCATION)) { New-Item $env:STORAGE_LOCATION -ItemType Directory }
-if (!(Test-Path "$env:STORAGE_LOCATION\.env")) { New-Item "$env:STORAGE_LOCATION\.env" -ItemType File }
-
-docker run -d --name anythingllm -p 3001:3001 `
-  --cap-add SYS_ADMIN `
-  -v "$env:STORAGE_LOCATION`:/app/server/storage" `
-  -v "$env:STORAGE_LOCATION\.env:/app/server/.env" `
-  -e STORAGE_DIR="/app/server/storage" `
-  -e PROVIDER_DISABLE_NATIVE_TOOL_CALLING="generic-openai" `
-  mintplexlabs/anythingllm
-```
-
-### Linux
-
-```bash
-docker pull mintplexlabs/anythingllm
-
-export STORAGE_LOCATION="$HOME/anythingllm"
-mkdir -p "$STORAGE_LOCATION"
-touch "$STORAGE_LOCATION/.env"
-
-docker run -d --name anythingllm -p 3001:3001 \
-  --cap-add SYS_ADMIN \
-  --add-host=host.docker.internal:host-gateway \
-  -v "$STORAGE_LOCATION:/app/server/storage" \
-  -v "$STORAGE_LOCATION/.env:/app/server/.env" \
-  -e STORAGE_DIR="/app/server/storage" \
-  -e PROVIDER_DISABLE_NATIVE_TOOL_CALLING="generic-openai" \
-  mintplexlabs/anythingllm
-```
-
-Mở <http://localhost:3001> sau khi container khởi động.
-
-Các lệnh quản lý thường dùng:
-
-```bash
-docker logs -f anythingllm
-docker stop anythingllm
-docker start anythingllm
-docker rm -f anythingllm
-```
-
-Dữ liệu vẫn nằm trong thư mục `STORAGE_LOCATION` sau khi xóa container.
-
-## 4. Build và chạy bằng Docker Compose
+## 3. Build và chạy bằng Docker Compose
 
 Cách này build image trực tiếp từ mã nguồn hiện tại.
 
@@ -244,7 +190,7 @@ Khởi động lại stack sau khi sửa `docker/.env`:
 docker compose up -d
 ```
 
-## 5. Kết nối dịch vụ chạy trên máy host
+## 4. Kết nối dịch vụ chạy trên máy host
 
 Từ bên trong container, `localhost` là chính container. Nếu Ollama, LM Studio, Chroma hoặc dịch vụ khác đang chạy trên máy host, dùng:
 
@@ -260,7 +206,7 @@ http://host.docker.internal:11434
 
 Lệnh Docker trên Linux ở trên đã thêm ánh xạ `host.docker.internal`.
 
-## 6. Xử lý lỗi thường gặp
+## 5. Xử lý lỗi thường gặp
 
 ### `yarn` không được nhận diện
 
