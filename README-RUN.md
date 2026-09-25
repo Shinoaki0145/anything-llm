@@ -39,7 +39,7 @@ corepack prepare yarn@1.22.22 --activate
 Script `yarn setup` sử dụng một số lệnh Unix, vì vậy nên chạy bằng **Git Bash**:
 
 ```bash
-git clone https://github.com/Mintplex-Labs/anything-llm.git
+git clone https://github.com/Shinoaki0145/anything-llm.git
 cd anything-llm
 yarn setup
 yarn dev
@@ -87,7 +87,7 @@ corepack prepare yarn@1.22.22 --activate
 Cài đặt và chạy:
 
 ```bash
-git clone https://github.com/Mintplex-Labs/anything-llm.git
+git clone https://github.com/Shinoaki0145/anything-llm.git
 cd anything-llm
 yarn setup
 yarn dev
